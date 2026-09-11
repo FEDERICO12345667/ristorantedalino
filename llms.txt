@@ -1,0 +1,14 @@
+# Ristorante Da Lino
+
+> Ristorante e pizzeria a conduzione familiare a Fara Vicentino (VI), Italia, aperto dal 1975. Cucina di collina alla griglia a legna, pizzeria con forno a legna, terrazza panoramica sulle colline vicentine, sale per feste e ricevimenti.
+
+## Pagine
+
+- [Home](https://www.ristorantedalino.it/): storia del ristorante dal 1975, menù (cucina e pizzeria), spazi (terrazza panoramica, sale, pizzeria), contatti e orari di apertura.
+- [Privacy Policy](https://www.ristorantedalino.it/privacy.html)
+
+## Contatti
+
+- Indirizzo: Via Sant'Antonio 3, 36030 Fara Vicentino (VI), Italia
+- Telefono: 0445873241
+- Chiuso il mercoledì
