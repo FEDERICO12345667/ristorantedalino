@@ -1,8 +1,10 @@
 # Ristorante Da Lino — sito web
 
-Sito statico (HTML/CSS/JS puro, nessun framework, nessuna dipendenza npm in produzione) per il Ristorante Da Lino, Fara Vicentino (VI). **Pronto per la pubblicazione**, in attesa solo di dominio/hosting definitivi.
+Sito statico (HTML/CSS/JS puro, nessun framework, nessuna dipendenza npm in produzione) per il Ristorante Da Lino, Fara Vicentino (VI).
 
-Questo file è il punto di partenza per qualsiasi modifica futura: descrive struttura, design system, contenuti e tutto il lavoro di rifinitura fatto in questa sessione.
+**🟢 Online**: [https://ristorantedalino.it](https://ristorantedalino.it) — HTTPS attivo, `www.ristorantedalino.it` reindirizza automaticamente al dominio principale.
+
+Questo file è il punto di partenza per qualsiasi modifica futura: descrive struttura, design system, contenuti, deploy e tutto il lavoro fatto finora.
 
 ---
 
@@ -12,7 +14,8 @@ Questo file è il punto di partenza per qualsiasi modifica futura: descrive stru
 da-lino/
 ├── index.html              pagina principale (tutte le sezioni)
 ├── 404.html                pagina errore, stesso stile del sito
-├── privacy.html            informativa privacy (GDPR, Google Maps incluso)
+├── privacy.html            informativa privacy (GDPR, Google Maps incluso, titolare)
+├── CNAME                   dominio personalizzato per GitHub Pages (ristorantedalino.it)
 ├── robots.txt              per i crawler
 ├── sitemap.xml             mappa del sito (2 URL: home + privacy)
 ├── llms.txt                descrizione sintetica per crawler LLM
@@ -135,23 +138,58 @@ Due problemi di layout visibili solo su schermi stretti (sotto 720px), corretti 
 - **Nomi lunghi tagliati fuori schermo**: `.menu-item .name` aveva `white-space:nowrap` fisso, pensato per allineare il nome alla lineetta puntinata. Su mobile, un nome lungo senza prezzo (es. "Tagliere di affettati misti e formaggio con sottaceti") non aveva nulla contro cui restringersi e usciva dallo schermo. Ora, solo sotto i 720px, il nome può andare a capo su più righe (`white-space:normal`) e la lineetta puntinata (`.leader`) si nasconde (`display:none`) perché non avrebbe più senso visivo con il testo su più righe.
 - **Prezzo spezzato tra numero e simbolo** (es. "12" e "€" su due righe separate, voce "Mezze lune ai porcini con burro e salvia"): `.menu-item .price` non impediva l'andare a capo dentro il prezzo stesso. Aggiunto `white-space:nowrap` (stavolta globale, non solo mobile) + `flex-shrink:0` così "12 €" resta sempre insieme.
 
+### Storia — testo rivisto (12/09–14/09)
+Il cliente ha fornito una versione rivista del testo della sezione "La Storia", con correzioni e un riordino cronologico:
+- "Ostaria da Turateo" → **"Ostaria da Turatea"**; "Leva di Montecchio Precalcino" → **"Levà di Montecchio Precalcino"**
+- Il paragrafo del ritorno a San Pietro in Gu è stato **spostato prima** dell'opportunità della Trattoria Valdastico (che ha più senso narrativo) e la data corretta da **1972 a 1962**
+- "locale grande" → "locale capiente"; "vende la trattoria della stazione" → "vende la trattoria a Levà"
+
+### Contatti — aggiunto numero di cellulare
+In `#contatti`, nuova riga **"Cellulare: 366 4147665"** subito dopo "Telefono" (i pulsanti "Chiama", collegati al fisso, non sono stati toccati).
+
 ---
 
-## Cosa resta da fare prima di andare online
+## Deploy, hosting e dominio
 
-**Bloccanti:**
-1. Registrare il dominio (nei file è usato come placeholder `https://www.ristorantedalino.it` — va aggiornato ovunque appare se cambia: `index.html` head, `privacy.html`, `robots.txt`, `sitemap.xml`, `llms.txt`)
-2. Far rivedere `privacy.html` da un professionista legale
-3. Scegliere hosting e pubblicare
+### Stato attuale (online)
+- **Sito**: [https://ristorantedalino.it](https://ristorantedalino.it) — hosting **GitHub Pages**, HTTPS attivo (certificato automatico GitHub), `www` reindirizza (301) al dominio principale
+- **Codice sorgente**: repository GitHub [FEDERICO12345667/ristorantedalino](https://github.com/FEDERICO12345667/ristorantedalino), branch `main`
+- **Deploy automatico**: ogni `git push` su `main` pubblica la nuova versione in automatico (nessun passaggio manuale)
+- **DNS**: gestito da **Aruba** (nameserver Aruba di default — `dns.technorail.com`, `dns2.technorail.com`, `dns3.arubadns.net`, `dns4.arubadns.cz`), con questi record aggiunti nel pannello "Gestione DNS":
+  - 4 record **A**, host `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (IP ufficiali GitHub Pages)
+  - 1 record **CNAME**, host `www` → `federico12345667.github.io`
+  - 1 record **TXT**, host `@` → `google-site-verification=...` (verifica proprietà Google Search Console)
+- File **`CNAME`** nella root del repo (contenuto: `ristorantedalino.it`) dice a GitHub Pages quale dominio servire
 
-**Da fare in fase di deploy:**
-4. Configurare `404.html` come pagina di errore lato hosting (dipende dalla piattaforma)
-5. Inviare `sitemap.xml` a Google Search Console
+### Perché non è su Cloudflare (tentativo precedente, abbandonato)
+Prima tentativo: Cloudflare Workers (con deploy automatico da GitHub) + cambio nameserver del dominio verso Cloudflare. Il sito su Cloudflare funzionava perfettamente (era raggiungibile su un indirizzo `.workers.dev`), ma il dominio `.it` non si è mai attivato:
+- Il registro **.it (Nic.it)** ha rifiutato la richiesta di cambio nameserver inoltrata da Aruba, con errore ufficiale (verificato con lo strumento `dns-check.nic.it`): i nameserver assegnati da Cloudflare (`ignat.ns.cloudflare.com`, `olivia.ns.cloudflare.com`) rispondevano **`REFUSED`** alle query SOA/NS/MX — cioè si rifiutavano di rispondere come autorevoli per la zona
+- Causa: la zona Cloudflare restava in stato `pending` (mai attivata) perché — secondo Cloudflare stessa — i propri nameserver **non servono una zona come autorevole finché il registro non ha già completato la delega verso di loro**. Ma il registro, per completare la delega, testa prima che i nuovi nameserver rispondano correttamente: un vero e proprio cane che si morde la coda, non risolvibile senza intervento di Cloudflare (mai ottenuto, nemmeno dopo aver fornito le prove tecniche dell'errore)
+- I nameserver sono stati **ripristinati su quelli di Aruba** (rollback) dopo il rifiuto del registro
+- **Scelta finale**: passare a GitHub Pages, che non richiede alcun cambio di delega/nameserver — bastano i record A/CNAME diretti sul pannello DNS di Aruba (già elencati sopra), aggirando completamente il problema
+- URL Cloudflare Worker (non più in uso come sito principale, lasciato attivo come backup): `ristorantedalino.faravicentino.workers.dev`
+
+### Google Search Console
+Proprietà `ristorantedalino.it` verificata tramite record TXT su Aruba; indicizzazione della home richiesta manualmente (strumento "Controllo URL" → "Richiedi indicizzazione") per sostituire più in fretta il vecchio risultato di ricerca (che mostrava ancora la pagina di parcheggio Aruba, indicizzata prima che il sito fosse online).
+
+---
+
+## Cosa resta da fare
+
+**Fatto (non più bloccante):**
+1. ~~Registrare il dominio~~ → `ristorantedalino.it` registrato su Aruba e online
+2. ~~Scegliere hosting e pubblicare~~ → GitHub Pages, HTTPS attivo
+3. ~~Far rivedere `privacy.html`~~ → titolare e ragione sociale aggiunti; **resta comunque da far confermare il testo a un professionista legale** prima di considerarlo definitivo al 100%
+4. ~~Inviare il sito a Google Search Console~~ → proprietà verificata, indicizzazione richiesta
+
+**Da fare:**
+5. Configurare `404.html` come pagina di errore personalizzata (GitHub Pages la usa automaticamente se si chiama `404.html` nella root — da verificare che sia effettivamente servita su un URL inesistente)
+6. Controllare a distanza di qualche giorno che il risultato su Google mostri titolo/descrizione corretti (non più "Senza titolo")
 
 **Facoltativo:**
-6. Instagram/altri social da aggiungere al JSON-LD (`sameAs`) se in futuro apriranno un profilo — al momento c'è solo Facebook
-7. Un vero logo, se mai verrà creato, può sostituire il favicon monogramma
-8. Cookie Policy/Termini e condizioni: non necessari ora (nessun form, nessun e-commerce/prenotazioni) — da valutare solo se si aggiungono queste funzionalità in futuro
+7. Instagram/altri social da aggiungere al JSON-LD (`sameAs`) se in futuro apriranno un profilo — al momento c'è solo Facebook
+8. Un vero logo, se mai verrà creato, può sostituire il favicon monogramma
+9. Cookie Policy/Termini e condizioni: non necessari ora (nessun form, nessun e-commerce/prenotazioni) — da valutare solo se si aggiungono queste funzionalità in futuro
 
 ---
 
@@ -159,7 +197,9 @@ Due problemi di layout visibili solo su schermi stretti (sotto 720px), corretti 
 
 - **Indirizzo**: Via Sant'Antonio 3, 36030 Fara Vicentino (VI)
 - **Telefono**: 0445873241
+- **Cellulare**: 366 4147665
 - **Orari**: Lun 09–15/17–00 · Mar 09–15 · Mer chiuso · Gio–Sab 09–15/17–00 · Dom 09–15/18–00
 - **Facebook**: https://www.facebook.com/p/Ristorante-pizzeria-Da-Lino-100041686732372/
-- **Dominio previsto**: www.ristorantedalino.it (da registrare)
+- **Dominio**: [ristorantedalino.it](https://ristorantedalino.it) — online
+- **Titolare / ragione sociale** (in `privacy.html`): Mariagrazia Turatello, Trattoria Pizzeria Da Lino di Turatello Mariagrazia & C. SNC
 - **Spiedo**: su prenotazione, nessun prezzo pubblicato
