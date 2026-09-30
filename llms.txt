@@ -4,8 +4,8 @@
 
 ## Pagine
 
-- [Home](https://www.ristorantedalino.it/): storia del ristorante dal 1975, menù (cucina e pizzeria), spazi (terrazza panoramica, sale, pizzeria), contatti e orari di apertura.
-- [Privacy Policy](https://www.ristorantedalino.it/privacy.html)
+- [Home](https://ristorantedalino.it/): storia del ristorante dal 1975, menù (cucina e pizzeria), spazi (terrazza panoramica, sale, pizzeria), contatti e orari di apertura.
+- [Privacy Policy](https://ristorantedalino.it/privacy.html)
 
 ## Contatti
 
