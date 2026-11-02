@@ -67,6 +67,7 @@
   <div class="wrap">
     <a href="#" class="brand">Da <span>Lino</span></a>
     <nav class="links">
+      <a href="#capodanno">Capodanno</a>
       <a href="#storia">La Storia</a>
       <a href="#menu">Menù</a>
       <a href="#terrazza">Spazi</a>
@@ -91,6 +92,50 @@
       <a href="tel:+390445873241" class="btn">Chiama</a>
       <a href="#menu" class="btn">Il Menù</a>
     </div>
+  </div>
+</section>
+
+<!-- ================= AVVISO NATALE (da rimuovere dopo le feste, con il CSS .notice) ================= -->
+<section id="avviso" class="notice">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Avviso</span>
+      <h2 style="margin-top:14px;">Pranzo di Natale</h2>
+      <div class="rule center"></div>
+    </div>
+
+    <div class="notice-text reveal">
+      <p>Gentile clientela,<br>informiamo che quest'anno il Ristorante Da Lino non organizzerà il pranzo di Natale per motivi familiari.</p>
+      <p>Vi ringraziamo di cuore per la comprensione e per l'affetto che ci dimostrate sempre.</p>
+      <p>Vi auguriamo buone feste e vi aspettiamo con gioia per il cenone di Capodanno.</p>
+      <p class="signature">Staff Da Lino</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAPODANNO (da rimuovere dopo il 1° gennaio, con il link nel menu e il CSS/JS .newyear) ================= -->
+<section id="capodanno" class="newyear">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Buone feste</span>
+      <h2 style="margin-top:14px;">Cenone di Capodanno</h2>
+      <div class="rule center"></div>
+    </div>
+
+    <div class="newyear-menu reveal">
+      <button type="button" class="newyear-photo" id="newyear-open" aria-haspopup="dialog" aria-label="Ingrandisci il menù di Capodanno">
+        <img src="images/menu-capodanno.jpg" width="658" height="935" alt="Menù di Capodanno del Ristorante Da Lino" loading="lazy">
+        <span class="newyear-zoom" aria-hidden="true">Ingrandisci</span>
+      </button>
+      <div class="newyear-cta">
+        <a href="tel:+390445873241" class="btn">Prenota</a>
+      </div>
+    </div>
+
+    <dialog id="newyear-dialog" aria-label="Menù di Capodanno ingrandito">
+      <img src="images/menu-capodanno.jpg" width="658" height="935" alt="Menù di Capodanno del Ristorante Da Lino">
+      <button type="button" class="newyear-close" id="newyear-close" aria-label="Chiudi">×</button>
+    </dialog>
   </div>
 </section>
 

@@ -44,6 +44,15 @@ if (storyToggleBtn && storyMore && storyToggleCloseBtn) {
   });
 }
 
+const newyearDialog = document.getElementById('newyear-dialog');
+const newyearOpen = document.getElementById('newyear-open');
+const newyearClose = document.getElementById('newyear-close');
+if (newyearDialog && newyearOpen && newyearClose) {
+  newyearOpen.addEventListener('click', ()=> newyearDialog.showModal());
+  newyearClose.addEventListener('click', ()=> newyearDialog.close());
+  newyearDialog.addEventListener('click', (e)=>{ if (e.target === newyearDialog) newyearDialog.close(); });
+}
+
 const mapLoadBtn = document.getElementById('map-load-btn');
 if (mapLoadBtn) {
   mapLoadBtn.addEventListener('click', ()=>{

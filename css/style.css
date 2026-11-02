@@ -129,6 +129,50 @@ section{padding:130px 0;}
 .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
 .section-head h2{font-size:clamp(2.1rem, 3.6vw, 3rem);}
 
+/* ---------- AVVISO NATALE ---------- */
+.notice{background:var(--black); padding:100px 0 70px;}
+.notice .section-head{margin-bottom:36px;}
+.notice-text{max-width:640px; margin:0 auto; text-align:center;}
+.notice-text p{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:400;
+  font-size:1.3rem; line-height:1.55; color:var(--ivory-soft); margin-bottom:18px;
+}
+.notice-text .signature{
+  font-family:'Jost', sans-serif; font-style:normal; font-weight:500;
+  font-size:0.72rem; letter-spacing:0.32em; text-transform:uppercase; color:var(--gold);
+  margin:28px 0 0;
+}
+
+/* ---------- CAPODANNO ---------- */
+.newyear{background:var(--panel);}
+.newyear .section-head{margin-bottom:40px;}
+.newyear-menu{max-width:420px; margin:0 auto;}
+.newyear-photo{
+  position:relative; display:block; width:100%; padding:0; cursor:zoom-in;
+  background:none; border:1px solid var(--gold-soft); overflow:hidden;
+}
+.newyear-photo img{width:100%; height:auto; display:block;}
+.newyear-zoom{
+  position:absolute; right:12px; bottom:12px; padding:6px 12px;
+  background:rgba(16,14,11,0.78); color:var(--ivory); border:1px solid var(--gold-soft);
+  font-family:'Jost', sans-serif; font-weight:500; font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase;
+}
+.newyear-photo:focus-visible{outline:1px solid var(--gold-light); outline-offset:4px;}
+.newyear-cta{margin-top:32px; text-align:center;}
+#newyear-dialog{
+  position:fixed; inset:0; margin:auto; padding:0; border:1px solid var(--gold-soft);
+  background:var(--black); max-width:min(658px, 92vw); max-height:92vh; overflow:auto;
+}
+#newyear-dialog::backdrop{background:rgba(16,14,11,0.88);}
+#newyear-dialog img{width:100%; height:auto; display:block;}
+.newyear-close{
+  position:absolute; top:8px; right:8px; width:40px; height:40px;
+  background:rgba(16,14,11,0.85); color:var(--ivory); border:1px solid var(--gold-soft);
+  font-size:1.6rem; line-height:1; cursor:pointer;
+}
+.newyear-close:hover{background:var(--gold); color:var(--black);}
+.newyear-close:focus-visible{outline:1px solid var(--gold-light); outline-offset:3px;}
+
 /* ---------- STORIA (ivory panel) ---------- */
 .story{background:var(--ivory); color:var(--ink);}
 .story .eyebrow{color:var(--gold);}
@@ -269,6 +313,7 @@ footer.bottom a:hover, footer.bottom a:focus-visible{color:var(--gold);}
 @media (max-width: 900px){
   .contact .wrap{grid-template-columns:1fr; gap:44px;}
   .story-block, .space-panel, .special-block{grid-template-columns:1fr; gap:26px;}
+  nav.links{gap:22px;}
 }
 @media (max-width: 720px){
   nav.links{display:none;}
